@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "polynomial-roots"
+version = "0.1.0"
+description = "Find roots of polynomials with multiplicity (quadratic + future extensions)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "you@example.com"}
+]
+keywords = ["polynomial", "roots", "quadratic", "numerical-methods"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    # "numpy>=1.23",         # optional later
+    # "scipy>=1.10",         # optional later
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.7",
+    "mypy>=1.11",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Disciple0fMarx/polynomial-roots"
+"Repository" = "https://github.com/Disciple0fMarx/polynomial-roots.git"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/polynomial_roots"]
+
