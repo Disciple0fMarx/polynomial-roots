@@ -2,6 +2,7 @@
 from polynomial_roots import (
     QuadraticRoots,
     CubicRoots,
+    QuarticRoots,
     format_polynomial,
     format_roots,
 )
@@ -50,3 +51,23 @@ print("Roots:", format_roots(p8.roots()))
 p9 = CubicRoots([1, 0, 0, 8])
 print("\nPolynomial:", format_polynomial(p9.coeffs))
 print("Roots:", format_roots(p9.roots()))
+
+# x^4 - 10x^2 + 9 = 0  → roots: ±1, ±3
+p10 = QuarticRoots([1, 0, -10, 0, 9])
+print("\nPolynomial:", format_polynomial(p10.coeffs))
+print("Roots:", format_roots(p10.roots()))
+
+# x^4 + 1 = 0  → 4 complex roots on the unit circle
+p11 = QuarticRoots([1, 0, 0, 0, 1], complex_output=True)
+print("\nPolynomial:", format_polynomial(p11.coeffs))
+print("Roots:", format_roots(p11.roots()))
+
+# (x - 1)^4 = x^4 - 4x^3 + 6x^2 - 4x + 1  → quadruple root at x = 1
+p12 = QuarticRoots([1, -4, 6, -4, 1])
+print("\nPolynomial:", format_polynomial(p12.coeffs))
+print("Roots:", format_roots(p12.roots()))
+
+# (1+2j)x^4 - 3x^2 + (4-1j) = 0
+p13 = QuarticRoots([1 + 2j, 0, -3, 0, 4 - 1j], complex_output=True)
+print("\nPolynomial:", format_polynomial(p13.coeffs))
+print("Roots:", format_roots(p13.roots()))
