@@ -44,4 +44,47 @@ class PolynomialRootsBase:
     def roots(self) -> List[Root]:
         """Must be implemented by subclasses."""
         raise NotImplementedError
+    
+    def _merge_roots(self, roots: List[Root]) -> List[Root]:
+        """
+        Merge numerically close roots into single roots with multiplicity.
+        """
 
+        MERGE_EPS = 10 * self.eps
+
+        # Sort roots deterministically
+        roots_sorted = sorted(
+            roots, key=lambda r: (r.value.real, r.value.imag)
+        )
+
+        merged: List[Root] = []
+
+        for r in roots_sorted:
+            z = r.value
+
+            # Snap tiny imaginary parts to zero
+            if abs(z.imag) < self.eps:
+                z = complex(z.real, 0)
+
+            if not merged:
+                merged.append(Root(value=z, multiplicity=r.multiplicity))
+                continue
+
+            last = merged[-1]
+            dz = z - last.value
+
+            if abs(dz) < MERGE_EPS:
+                # Merge: compute centroid to avoid drift (critical for (x-a)^4)
+                total_mult = last.multiplicity + r.multiplicity
+                avg = (
+                    last.value * last.multiplicity + z * r.multiplicity
+                ) / total_mult
+
+                merged[-1] = Root(
+                    value=avg,
+                    multiplicity=total_mult,
+                )
+            else:
+                merged.append(Root(value=z, multiplicity=r.multiplicity))
+
+        return merged
