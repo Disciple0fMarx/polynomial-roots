@@ -101,16 +101,17 @@ class CubicRoots(PolynomialRootsBase):
             ])
 
         # Merge very close roots for multiplicities (works with frozen Root)
-        if real_coeffs:
-            roots.sort(key=lambda r: (r.value.real, r.value.imag))
-            merged: List[Root] = []
-            for r in roots:
-                if merged:
-                    last = merged[-1]
-                    if abs(last.value.real - r.value.real) < self.eps and abs(last.value.imag - r.value.imag) < self.eps:
-                        merged[-1] = Root(value=last.value, multiplicity=last.multiplicity + r.multiplicity)
-                        continue
-                merged.append(r)
-            roots = merged
+        # if real_coeffs:
+        #     roots.sort(key=lambda r: (r.value.real, r.value.imag))
+        #     merged: List[Root] = []
+        #     for r in roots:
+        #         if merged:
+        #             last = merged[-1]
+        #             if abs(last.value.real - r.value.real) < self.eps and abs(last.value.imag - r.value.imag) < self.eps:
+        #                 merged[-1] = Root(value=last.value, multiplicity=last.multiplicity + r.multiplicity)
+        #                 continue
+        #         merged.append(r)
+        #     roots = merged
 
-        return roots
+        # return roots
+        return self._merge_roots(roots)
